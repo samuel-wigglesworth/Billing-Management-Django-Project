@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block nav_filter %}
+<form method="get" class="filter">
+    {{ date_filter_form.start_date }} {{ date_filter_form.end_date }}
+    <button class="btn" type="submit">Search</button>
+</form>
+{% endblock %}
+{% block content %}
+<h2>Products</h2>
+<a href="{% url 'product_add' %}" class="btn">Add Product</a>
+{% if products %}
+<table>
+    <tr>
+        <th>Product No</th><th>Group</th><th>Brand</th><th>Size</th><th>Min Price</th><th>Purchase</th><th>Sale</th><th>Stock</th><th>Stock Value</th><th>Stock Profit</th><th>Profit</th><th>Barcode</th><th>Action</th>
+    </tr>
+    {% for item in products %}
+    <tr>
+        <td>{{ item.product_number }}</td><td>{{ item.group }}</td><td>{{ item.brand }}</td><td>{{ item.size }}</td><td>{{ item.min_price }}</td><td>{{ item.purchase_price }}</td><td>{{ item.sale_price }}</td><td>{{ item.stock }}</td><td>{{ item.stock_value }}</td><td>{{ item.stock_profit }}</td><td>{{ item.profit }}</td><td>{{ item.barcode|default:"-" }}</td>
+        <td class="actions">
+            <a href="{% url 'product_edit' item.pk %}" class="btn">Edit</a>
+            <a href="{% url 'product_delete' item.pk %}" class="btn btn-danger">Delete</a>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+{% else %}
+<p class="empty">No data found.</p>
+{% endif %}
+{% endblock %}

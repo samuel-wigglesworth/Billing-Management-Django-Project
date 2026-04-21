@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block nav_filter %}
+<form method="get" class="filter">
+    {{ date_filter_form.start_date }} {{ date_filter_form.end_date }}
+    <button class="btn" type="submit">Search</button>
+</form>
+{% endblock %}
+{% block content %}
+<h2>Billing</h2>
+<a href="{% url 'billing_add' %}" class="btn">Add Bill</a>
+{% if bills %}
+<table>
+    <tr><th>Bill Number</th><th>Customer</th><th>Date</th><th>Total</th><th>Status</th><th>Action</th></tr>
+    {% for item in bills %}
+    <tr>
+        <td>{{ item.bill_number }}</td><td>{{ item.customer_name }}</td><td>{{ item.billing_date }}</td><td>{{ item.total_amount }}</td><td>{{ item.status }}</td>
+        <td class="actions"><a href="{% url 'billing_edit' item.pk %}" class="btn">Edit</a><a href="{% url 'billing_delete' item.pk %}" class="btn btn-danger">Delete</a></td>
+    </tr>
+    {% endfor %}
+</table>
+{% else %}
+<p class="empty">No data found.</p>
+{% endif %}
+{% endblock %}

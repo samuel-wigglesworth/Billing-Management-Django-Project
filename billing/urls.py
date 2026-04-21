@@ -1,0 +1,41 @@
+from django.urls import path
+
+from .views import (
+    BillingCreateView,
+    BillingDeleteView,
+    BillingListView,
+    BillingUpdateView,
+    DashboardView,
+    ProductCreateView,
+    ProductDeleteView,
+    ProductListView,
+    ProductUpdateView,
+    SalesDataCreateView,
+    SalesDataDeleteView,
+    SalesDataListView,
+    SalesDataUpdateView,
+    SalesInvoiceCreateView,
+    SalesInvoiceDeleteView,
+    SalesInvoiceListView,
+    SalesInvoiceUpdateView,
+)
+
+urlpatterns = [
+    path("", DashboardView.as_view(), name="dashboard"),
+    path("products/", ProductListView.as_view(), name="product_list"),
+    path("products/add/", ProductCreateView.as_view(), name="product_add"),
+    path("products/<int:pk>/edit/", ProductUpdateView.as_view(), name="product_edit"),
+    path("products/<int:pk>/delete/", ProductDeleteView.as_view(), name="product_delete"),
+    path("billing/", BillingListView.as_view(), name="billing_list"),
+    path("billing/add/", BillingCreateView.as_view(), name="billing_add"),
+    path("billing/<int:pk>/edit/", BillingUpdateView.as_view(), name="billing_edit"),
+    path("billing/<int:pk>/delete/", BillingDeleteView.as_view(), name="billing_delete"),
+    path("sales-data/", SalesDataListView.as_view(), name="salesdata_list"),
+    path("sales-data/add/", SalesDataCreateView.as_view(), name="salesdata_add"),
+    path("sales-data/<int:pk>/edit/", SalesDataUpdateView.as_view(), name="salesdata_edit"),
+    path("sales-data/<int:pk>/delete/", SalesDataDeleteView.as_view(), name="salesdata_delete"),
+    path("sales-invoice/", SalesInvoiceListView.as_view(), name="salesinvoice_list"),
+    path("sales-invoice/add/", SalesInvoiceCreateView.as_view(), name="salesinvoice_add"),
+    path("sales-invoice/<int:pk>/edit/", SalesInvoiceUpdateView.as_view(), name="salesinvoice_edit"),
+    path("sales-invoice/<int:pk>/delete/", SalesInvoiceDeleteView.as_view(), name="salesinvoice_delete"),
+]

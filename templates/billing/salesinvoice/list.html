@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block nav_filter %}
+<form method="get" class="filter">
+    {{ date_filter_form.start_date }} {{ date_filter_form.end_date }}
+    <button class="btn" type="submit">Search</button>
+</form>
+{% endblock %}
+{% block content %}
+<h2>Sales Invoice</h2>
+<a href="{% url 'salesinvoice_add' %}" class="btn">Add Sales Invoice</a>
+{% if invoices %}
+<table>
+    <tr><th>Invoice Number</th><th>Date</th><th>Customer</th><th>Amount</th><th>Notes</th><th>Action</th></tr>
+    {% for item in invoices %}
+    <tr>
+        <td>{{ item.invoice_number }}</td><td>{{ item.invoice_date }}</td><td>{{ item.customer_name }}</td><td>{{ item.amount }}</td><td>{{ item.notes }}</td>
+        <td class="actions"><a href="{% url 'salesinvoice_edit' item.pk %}" class="btn">Edit</a><a href="{% url 'salesinvoice_delete' item.pk %}" class="btn btn-danger">Delete</a></td>
+    </tr>
+    {% endfor %}
+</table>
+{% else %}
+<p class="empty">No data found.</p>
+{% endif %}
+{% endblock %}

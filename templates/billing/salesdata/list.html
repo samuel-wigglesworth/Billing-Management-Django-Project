@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block nav_filter %}
+<form method="get" class="filter">
+    {{ date_filter_form.start_date }} {{ date_filter_form.end_date }}
+    <button class="btn" type="submit">Search</button>
+</form>
+{% endblock %}
+{% block content %}
+<h2>Sales Data</h2>
+<a href="{% url 'salesdata_add' %}" class="btn">Add Sales Data</a>
+{% if sales_data %}
+<table>
+    <tr><th>Date</th><th>Product</th><th>Quantity</th><th>Unit Price</th><th>Total Price</th><th>Action</th></tr>
+    {% for item in sales_data %}
+    <tr>
+        <td>{{ item.sale_date }}</td><td>{{ item.product }}</td><td>{{ item.quantity }}</td><td>{{ item.unit_price }}</td><td>{{ item.total_price }}</td>
+        <td class="actions"><a href="{% url 'salesdata_edit' item.pk %}" class="btn">Edit</a><a href="{% url 'salesdata_delete' item.pk %}" class="btn btn-danger">Delete</a></td>
+    </tr>
+    {% endfor %}
+</table>
+{% else %}
+<p class="empty">No data found.</p>
+{% endif %}
+{% endblock %}
